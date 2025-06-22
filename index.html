@@ -5,7 +5,7 @@
   <title>Dueling Miller</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    @import url('https://fonts.cdnfonts.com/css/papyrus'); /* If Papyrus not available on system */
+    @import url('https://fonts.cdnfonts.com/css/papyrus');
 
     * {
       margin: 0;
@@ -14,26 +14,34 @@
     }
 
     body {
-      background: url('brokebackmountain.jpg') no-repeat center center fixed;
-      background-size: cover;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       font-family: 'Papyrus', fantasy;
       color: white;
       text-shadow: 2px 2px 4px black;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('brokebackmountain.jpg') no-repeat center center/cover;
+      z-index: -1;
     }
 
     h1 {
       font-size: 4em;
-      margin-bottom: 40px;
+      text-align: center;
+      margin-top: 40px;
     }
 
     .social-icons {
       display: flex;
+      justify-content: center;
       gap: 30px;
+      margin: 20px 0;
     }
 
     .social-icons a {
@@ -44,31 +52,174 @@
 
     .social-icons a:hover {
       transform: scale(1.2);
-      color: #1db954; /* Spotify green accent on hover */
+      color: #1db954;
+    }
+
+    .song-content {
+      position: relative;
+      padding: 100px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .sticky-note {
+      background-color: #f9f9a8;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      font-size: 1.2em;
+      max-width: 280px;
+      text-align: center;
+      color: #333;
+      position: absolute;
+    }
+
+    .sticky-note h2 {
+      font-size: 1.5em;
+      color: #5a5a5a;
     }
   </style>
 </head>
 <body>
 
-  <h1>DUELING MILLER</h1>
+  <h1>Dueling Miller</h1>
 
   <div class="social-icons">
-    <a href="https://open.spotify.com/artist/blank" target="_blank" aria-label="Spotify">
-      <i class="fab fa-spotify"></i>
-    </a>
-    <a href="https://music.apple.com/artist/blank" target="_blank" aria-label="Apple Music">
-      <i class="fab fa-apple"></i>
-    </a>
-    <a href="https://instagram.com/duelingmiller" target="_blank" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://duelingmiller.bandcamp.com" target="_blank" aria-label="Bandcamp">
-      <i class="fab fa-bandcamp"></i>
-    </a>
-    <a href="https://www.tiktok.com/@duelingmiller" target="_blank" aria-label="TikTok">
-      <i class="fab fa-tiktok"></i>
-    </a>
+    <a href="https://open.spotify.com/artist/blank" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+    <a href="https://music.apple.com/artist/blank" target="_blank" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+    <a href="https://instagram.com/duelingmiller" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://duelingmiller.bandcamp.com" target="_blank" aria-label="Bandcamp"><i class="fab fa-bandcamp"></i></a>
+    <a href="https://www.tiktok.com/@duelingmiller" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
   </div>
+
+  <div class="song-content" id="sticky-container">
+    <!-- All sticky notes here will be populated by JS -->
+  </div>
+
+  <script>
+    const notes = [
+      {
+        title: "OZONE LAYER",
+        content: [
+          "There’s a hole in the ozone layer",
+          "Babe Ruth’s my favorite baseball",
+          "Yea he’s hot",
+          "On this earth we don’t speak the same language",
+          "You’ll get shot",
+          "It costs a lot to live",
+          "It costs a lot to spit",
+          "On the sidewalk",
+          "All around",
+          "Never been as much as down",
+          "Always up forever"
+        ]
+      },
+      {
+        title: "OCEAN UNDER RALEIGH",
+        content: [
+          "VISUAL OF THE LIGHT FLICKERING THROUGH AT THE TOP OF OCEAN EXCEPT ITS BLACK",
+          "There’s an ocean under raleigh",
+          "And the sky is tilted black",
+          "BLANK",
+          "With the memory attached",
+          "I don’t know",
+          "I don’t know",
+          "There’s an ocean under raleigh",
+          "Where the light filters through black",
+          "Where the chairs are 45 degrees",
+          "And they’re all falling through the ground",
+          "I don’t know",
+          "I don’t know",
+          "Time is meant for lost ideas/ideals",
+          "They surely will be back/I’m sure they will be back"
+        ]
+      },
+      { title: "CURB APPEAL", content: [
+        "Are you keeping up your curb appeal",
+        "Or curving towards the light",
+        "Cause when Danny died a year ago",
+        "He didn’t put up a fight",
+        "He didn’t put up a fight",
+        "He didn’t put up a fight"
+      ] },
+      { title: "THE TICK SONG", content: ["I only want one lyme the one in my drink"] },
+      { title: "CHEMICAL SKIN", content: [
+        "HL you’re the Lite of my life",
+        "This chemical skin is peeling away",
+        "Won’t protect me from the UV ray",
+        "And this pitch will only hold the foundation for so long"
+      ] },
+      { title: "SIDEWALK SONG", content: [
+        "PUT MY FINGER IN THE CONCRETE THAT HASNT DRIED",
+        "SPELLED OUT I AM NOT AFRAID TO DIE"
+      ] },
+      { title: "THROAT SONG", content: [
+        "There’s a cut on the underside of my tongue",
+        "And every time I smoke",
+        "It reminds me of the time",
+        "Danny held me in his arms",
+        "And screamed into the sky",
+        "“I went to war once",
+        "I believed in a free life”",
+        "Wasp in the kitchen",
+        "Wasp in the car",
+        "This firefly scar's",
+        "Not going away",
+        "Danny left me at the pew",
+        "But I begged him to stay",
+        "BLANK", "BLANK", "BLANK", "BLANK",
+        "“BLANK", "I believed in a free ride”",
+        "There’s a frog in the back of my throat",
+        "And every time I spoke",
+        "“BLANK",
+        "I believed in the afterlife”"
+      ] },
+      { title: "GOLD UNDER MATTRESS", content: [
+        "theres gold under the mattress",
+        "convince me you're oblivious",
+        "yet ask me for some answer",
+        "well i know nothing too",
+        "but i lie real good when i do"
+      ] },
+      { title: "FLOODING THE WATERLINE", content: [
+        "far too few faces to sit behind",
+        "doors close a quarter past eventide",
+        "mary is holding her guilt inside",
+        "grateful with painful and shame combined"
+      ] }
+    ];
+
+    const container = document.getElementById("sticky-container");
+
+    notes.forEach(note => {
+      const div = document.createElement("div");
+      div.classList.add("sticky-note");
+
+      const h2 = document.createElement("h2");
+      h2.innerText = note.title;
+      div.appendChild(h2);
+
+      note.content.forEach(line => {
+        const p = document.createElement("p");
+        p.innerText = line;
+        div.appendChild(p);
+      });
+
+      // Random scatter
+      const left = Math.floor(Math.random() * 80); // 0-80vw
+      const top = Math.floor(Math.random() * 5000); // up to 5000px downward
+      const rotate = Math.floor(Math.random() * 30 - 15); // -15 to +15 degrees
+
+      div.style.left = `${left}vw`;
+      div.style.top = `${top}px`;
+      div.style.transform = `rotate(${rotate}deg)`;
+
+      container.appendChild(div);
+    });
+  </script>
 
 </body>
 </html>
