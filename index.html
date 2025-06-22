@@ -81,6 +81,12 @@
       font-size: 1.5em;
       color: #5a5a5a;
     }
+
+    .sticky-note img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -95,12 +101,17 @@
     <a href="https://www.tiktok.com/@duelingmiller" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
   </div>
 
-  <div class="song-content" id="sticky-container">
-    <!-- All sticky notes here will be populated by JS -->
-  </div>
+  <div class="song-content" id="sticky-container"></div>
 
   <script>
     const notes = [
+      {
+        title: "IMAGE NOTE",
+        content: [
+          { type: "image", src: "dt.jpg", alt: "DT image" },
+          "This is an image note with DT.jpg"
+        ]
+      },
       {
         title: "OZONE LAYER",
         content: [
@@ -207,9 +218,16 @@
       div.appendChild(h2);
 
       note.content.forEach(line => {
-        const p = document.createElement("p");
-        p.innerText = line;
-        div.appendChild(p);
+        if (typeof line === "object" && line.type === "image") {
+          const img = document.createElement("img");
+          img.src = line.src;
+          img.alt = line.alt || "";
+          div.appendChild(img);
+        } else {
+          const p = document.createElement("p");
+          p.innerText = line;
+          div.appendChild(p);
+        }
       });
 
       // Random scatter
